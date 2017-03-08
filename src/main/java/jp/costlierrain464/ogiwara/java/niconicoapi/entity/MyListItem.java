@@ -12,47 +12,27 @@ import java.util.Map;
  */
 public class MyListItem {
     public int itemType;
-
     public String itemId;
-
     public String description;
-
     public String videoId;
-
     public String title;
-
     public String thumbnailUrl;
-
     public long firstRetrieve;
-
     public long updateTimeVideo;
-
     public long viewCounter;
-
     public long commentNum;
-
-    public long mylistCounter;
-
+    public long myListCounter;
     public String groupType;
-
     public long length;
-
     public boolean deleted;
-
     public String lastResBody;
-
     public String watchId;
-
     public boolean watch;
-
     public long createTime;
-
     public long updateTime;
 
     public static List<MyListItem> parse(String json) throws JSONException {
-
         List<MyListItem> list = new ArrayList<MyListItem>();
-
         Pojo pojo = JSON.decode(json, Pojo.class);
         for (Item item : pojo.mylistitem) {
             if (item.itemType == 0) {
@@ -69,7 +49,7 @@ public class MyListItem {
                 myitem.updateTimeVideo = Long.parseLong(map.get("update_time"));
                 myitem.viewCounter = Long.parseLong(map.get("view_counter"));
                 myitem.commentNum = Long.parseLong(map.get("num_res"));
-                myitem.mylistCounter = Long.parseLong(map.get("mylist_counter"));
+                myitem.myListCounter = Long.parseLong(map.get("mylist_counter"));
                 myitem.groupType = map.get("group_type");
                 myitem.length = Long.parseLong(map.get("length_seconds"));
                 myitem.deleted = "1".equals(map.get("deleted"));
@@ -93,17 +73,11 @@ public class MyListItem {
 
     public static class Item {
         public int itemType;
-
         public String itemId;
-
         public String description;
-
         public Map<String, String> itemData;
-
         public int watch;
-
         public long createTime;
-
         public long updateTime;
     }
 }

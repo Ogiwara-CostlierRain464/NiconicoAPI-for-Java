@@ -10,18 +10,21 @@ import java.net.URL;
  */
 public class WebClient implements AutoCloseable{
 
-    public CorrectedCookieManager manager;
+    public static CorrectedCookieManager manager;
 
+    //begin Must close at last
     public HttpURLConnection connection;
-
+    public OutputStream outputStream = null;
     public OutputStreamWriter outputStreamWriter = null;
-
     public InputStream inputStream = null;
+    //end
 
-    private WebClient(URL url) throws IOException{
+    public static void init(){
         manager = new CorrectedCookieManager();
         CookieHandler.setDefault(manager);
+    }
 
+    private WebClient(URL url) throws IOException{
         connection = (HttpURLConnection) url.openConnection();
     }
 
@@ -33,12 +36,14 @@ public class WebClient implements AutoCloseable{
         return webClient;
     }
 
-    public static WebClient post(String url,String postdata) throws IOException{
+    public static WebClient post(String url,String postData) throws IOException{
         WebClient webClient = new WebClient(new URL(url));
         webClient.connection.setDoOutput(true);
         webClient.connection.setRequestMethod("POST");
-        webClient.outputStreamWriter = new OutputStreamWriter(webClient.connection.getOutputStream());
-        webClient.outputStreamWriter.write(postdata);
+        webClient.outputStream =  webClient.connection.getOutputStream();
+        webClient.outputStreamWriter = new OutputStreamWriter(webClient.outputStream);
+        webClient.outputStreamWriter.write(postData);
+        webClient.outputStreamWriter.close();
         webClient.connection.connect();
         return webClient;
     }
@@ -55,8 +60,9 @@ public class WebClient implements AutoCloseable{
 
     public void close() throws IOException{
         connection.disconnect();
-        if(outputStreamWriter != null)
-            outputStreamWriter.close();
+
+        if(outputStream != null)
+            outputStream.close();
 
         if(inputStream != null)
             inputStream.close();
