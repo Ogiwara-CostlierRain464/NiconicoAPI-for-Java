@@ -66,6 +66,7 @@ public class NicoGetFlv {
             }
             if(StringUtils.isBlank(info.threadId))
                 throw new NiconicoException("Failed to get threadId");
+
             return info;
         }
     }

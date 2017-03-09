@@ -14,9 +14,7 @@ public class test {
         NiconicoAPIClient client = new NiconicoAPIClient();
         try{
             client.login(MAIL,PASS);
-            client.getComment(VIDEO_ID).stream().forEach(e->{
-                puts(e.msg);
-            });
+            client.downloadVideo("sm30737982","C:\\Users\\ogiwara\\Downloads\\Niko");
         }catch(Exception e){
             e.printStackTrace();
         }

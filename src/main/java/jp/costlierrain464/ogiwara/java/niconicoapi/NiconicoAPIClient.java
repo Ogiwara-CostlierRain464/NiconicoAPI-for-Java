@@ -3,13 +3,12 @@ package jp.costlierrain464.ogiwara.java.niconicoapi;
 import jp.costlierrain464.ogiwara.java.niconicoapi.entity.CommentInfo;
 import jp.costlierrain464.ogiwara.java.niconicoapi.entity.FlvInfo;
 import jp.costlierrain464.ogiwara.java.niconicoapi.entity.MyListItem;
+import jp.costlierrain464.ogiwara.java.niconicoapi.entity.ThumbInfo;
 import jp.costlierrain464.ogiwara.java.niconicoapi.exception.NiconicoException;
 import jp.costlierrain464.ogiwara.java.niconicoapi.http.WebClient;
-import jp.costlierrain464.ogiwara.java.niconicoapi.method.NicoGetAllMyList;
-import jp.costlierrain464.ogiwara.java.niconicoapi.method.NicoGetComment;
-import jp.costlierrain464.ogiwara.java.niconicoapi.method.NicoGetFlv;
-import jp.costlierrain464.ogiwara.java.niconicoapi.method.NicoLogin;
+import jp.costlierrain464.ogiwara.java.niconicoapi.method.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -72,5 +71,28 @@ public class NiconicoAPIClient {
      * @return 動画情報
      * @throws NiconicoException,IOException
      */
+    public ThumbInfo getThumbInfo(String id) throws NiconicoException,IOException{
+        return new NicoGetThumbInfo().execute(id);
+    }
 
+    /**
+     * 動画をダウンロード
+     *
+     * @param id 動画id
+     * @param destDir ダウンロード先ディレクトリ
+     * @return ダウンロードされたファイル
+     * @throws NiconicoException,IOException
+     */
+    public File downloadVideo(String id,String destDir) throws NiconicoException,IOException{
+        FlvInfo flvInfo = getFlv(id);
+        ThumbInfo thumbInfo = getThumbInfo(id);
+        return new NicoDownloadVideo(id,flvInfo,thumbInfo).execute(destDir);
+    }
+
+    /**
+     * 動画を検索
+     *
+     * @param
+     */
+    //TODO 新APIに対応 http://site.nicovideo.jp/search-api-docs/snapshot.html
 }
