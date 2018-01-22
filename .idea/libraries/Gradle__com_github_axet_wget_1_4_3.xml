@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.axet:wget:1.4.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.axet/wget/1.4.3/49b15efad791056b2adb9dfb13d9c599fced147/wget-1.4.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.axet/wget/1.4.3/5fddb329fc978c06363b56ab549417ec31623e9a/wget-1.4.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
